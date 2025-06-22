@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { FaUserCircle } from 'react-icons/fa'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const categories = [
   'Pet Sitter', 'Electrician', 'Plumber', 'Carpenter', 'Painter', 'Babysitter'
@@ -11,6 +13,7 @@ const categories = [
 export default function Home() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isSignup, setIsSignup] = useState(false)
+  const router = useRouter()
 
   // Form State
   const [formData, setFormData] = useState({
@@ -27,34 +30,43 @@ export default function Home() {
   }
 
   const handleSubmit = async () => {
-    const endpoint = isSignup ? '/api/auth/signup' : '/api/auth/login'
-
-    const payload = isSignup
-      ? {
+    // Handle Signup
+    if (isSignup) {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           firstName: formData.firstName,
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
           confirmPassword: formData.confirmPassword,
           phone: formData.phone,
-        }
-      : {
-          email: formData.email,
-          password: formData.password,
-        }
+        }),
+      })
 
-    const res = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      const result = await res.json()
+      if (res.ok) {
+        alert(result.message || 'Signup successful! Please log in.')
+        setIsSignup(false) // Switch to login form
+      } else {
+        alert(result.error || 'Something went wrong during sign up.')
+      }
+      return
+    }
+
+    // Handle Login
+    const res = await signIn('credentials', {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
     })
 
-    const result = await res.json()
-    if (res.ok) {
-      alert(result.message || 'Success!')
+    if (res?.ok) {
       setIsDialogOpen(false)
+      router.push('/dashboard')
     } else {
-      alert(result.error || 'Something went wrong.')
+      alert(res?.error || 'Invalid credentials.')
     }
   }
 

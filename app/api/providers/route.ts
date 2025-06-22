@@ -1,8 +1,7 @@
-// app/api/providers/route.ts
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth';
 
 export async function POST(req: Request) {
     const session = await getServerSession(authOptions);
@@ -40,4 +39,4 @@ export async function POST(req: Request) {
         console.error('Error creating service:', error);
         return NextResponse.json({ error: 'Something went wrong.' }, { status: 500 });
     }
-}
+} 

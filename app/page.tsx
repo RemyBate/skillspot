@@ -10,7 +10,7 @@ function CategoryButtons() {
             {categories.map((cat, index) => (
                 <button
                     key={index}
-                    className="bg-white rounded-full px-4 py-2 text-sm shadow hover:bg-blue-100 transition-colors"
+                    className="bg-white rounded-full px-4 py-2 text-sm shadow hover:bg-gray-200 transition-colors"
                 >
                     {cat}
                 </button>
@@ -21,9 +21,9 @@ function CategoryButtons() {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-100 to-blue-300">
+    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-blue-300 to-gray-400">
       <Header />
-      <main className="p-6 flex flex-col items-center">
+      <main className="container mx-auto px-4 py-12 text-center">
         <div className="text-center mt-20">
           <h1 className="text-5xl font-extrabold text-gray-800 tracking-tight">
             Find the right service, right away

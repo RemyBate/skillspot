@@ -52,50 +52,51 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label htmlFor="firstName" className="text-sm font-semibold text-gray-600">First Name</label>
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
                     <input
-                        id="firstName"
-                        name="firstName"
                         type="text"
+                        name="firstName"
+                        id="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                        required
-                        className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#0073e6] focus:border-[#0073e6] sm:text-sm"
                     />
                 </div>
                 <div>
-                    <label htmlFor="lastName" className="text-sm font-semibold text-gray-600">Last Name</label>
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Last Name</label>
                     <input
-                        id="lastName"
-                        name="lastName"
                         type="text"
+                        name="lastName"
+                        id="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                        required
-                        className="w-full mt-1 p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#0073e6] focus:border-[#0073e6] sm:text-sm"
                     />
-                </div>
-                <div>
-                    <label className="text-sm font-semibold text-gray-600">Email Address (read-only)</label>
-                    <p className="text-lg text-gray-700 bg-gray-100 p-2 rounded-md mt-1">{user.email}</p>
-                </div>
-                <div>
-                    <label className="text-sm font-semibold text-gray-600">Role (read-only)</label>
-                    <p className="text-lg text-gray-700 bg-gray-100 p-2 rounded-md mt-1 capitalize">{user.role}</p>
                 </div>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Read-only fields */}
+            <div>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <p className="mt-1 text-sm text-gray-500">{user.email}</p>
+            </div>
+            <div>
+                <label className="block text-sm font-medium text-gray-700">Role</label>
+                <p className="mt-1 text-sm text-gray-500 capitalize">{user.role}</p>
+            </div>
+
+
+            <div className="flex items-center justify-end space-x-4">
+                {message && <p className="text-sm text-green-600">{message}</p>}
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#0073e6] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0073e6] disabled:opacity-50"
                 >
                     {isLoading ? 'Saving...' : 'Save Changes'}
                 </button>
-                {message && <p className={`text-sm ${message.includes('success') ? 'text-green-600' : 'text-red-600'}`}>{message}</p>}
             </div>
         </form>
     )

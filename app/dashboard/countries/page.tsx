@@ -12,7 +12,7 @@ export default function CountriesPage() {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">
+      <h1 className="text-2xl font-bold mb-4 text-[#063773]">
         Select a Country
       </h1>
       <p className="text-gray-600 mb-6">
@@ -23,7 +23,7 @@ export default function CountriesPage() {
         <select
           value={selectedCountry}
           onChange={handleSelectChange}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0073e6]"
         >
           <option value="" disabled>
             -- Please choose a country --
@@ -40,7 +40,7 @@ export default function CountriesPage() {
         <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
           <p className="font-semibold text-gray-800">
             You have selected:{' '}
-            <span className="font-bold text-blue-600">
+            <span className="font-bold text-[#0073e6]">
               {
                 countries.find((country) => country.code === selectedCountry)
                   ?.name
